@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Platemovement : MonoBehaviour
 {
     public float speed = 5f;
-    public float rotspeed = 50f;
+    //public float rotspeed = 50f;
     Rigidbody rg;
 
     // Start is called before the first frame update
@@ -17,13 +18,12 @@ public class Platemovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float mh = Input.GetAxis("Horizontal");
-
-        Vector2 mv = new Vector2(mh, 0f);
-        rg.AddForce(mv * speed);
-        float sd = Input.GetAxis("Vertical");
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 direction = (mousePosition - transform.position).normalized;
+        rg.velocity = new Vector3(direction.x * speed, direction.y * speed);
+        /*float sd = Input.GetAxis("Vertical");
         var angles = transform.rotation.eulerAngles;
         angles.z += Time.deltaTime * rotspeed * sd;
-        transform.rotation = Quaternion.Euler(angles);
+        transform.rotation = Quaternion.Euler(angles);*/
     }
 }

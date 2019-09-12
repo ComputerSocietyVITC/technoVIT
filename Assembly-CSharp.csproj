@@ -64,8 +64,10 @@
     <Compile Include="Assets\Script\Destroyblock.cs" />
     <Compile Include="Assets\Script\forhello.cs" />
     <Compile Include="Assets\Script\Platemovement.cs" />
+    <Compile Include="Assets\Script\Platemovementkb.cs" />
     <Compile Include="Assets\Script\prefabulation.cs" />
     <Compile Include="Assets\Script\Spawner.cs" />
+    <Compile Include="Assets\Xtra Scripts\particlebehaviour.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/Anshul/Documents/Final Pro 2D/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
