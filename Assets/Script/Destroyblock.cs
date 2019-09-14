@@ -17,14 +17,6 @@ public class Destroyblock : MonoBehaviour
     }
     void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.tag == "hello")
-        {
-            Destroy(col.gameObject);
-            print("Hello");
-        }
-        else if (col.gameObject.tag == "Player")
-        {
-            Destroy(col.gameObject);
-            print("You Lose");        }
+        Destroy(col.gameObject);
     }
 }

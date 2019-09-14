@@ -4,14 +4,27 @@ using UnityEngine;
 
 public class forhello : MonoBehaviour
 {
-    public class prefabulation : MonoBehaviour
+    public int rec;
+    Rigidbody rg;
+    void Start()
     {
-        void OnCollisionEnter(Collision col)
+        rg = GetComponent<Rigidbody>();
+        rec = 0;    
+    }
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(1) && rec == 0)
         {
-            if (col.gameObject.tag == "hello" && gameObject.tag=="Player")
-            {
-                col.gameObject.tag = "Player";
-            }
+            rec = 1;
+        }
+        else if (Input.GetMouseButtonDown(1) && rec == 1)
+        {
+            rg.isKinematic = false;
+            rec = 0;
+        }
+        if (rec == 1)
+        {
+            rg.isKinematic = true;
         }
     }
 

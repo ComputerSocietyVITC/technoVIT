@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/movekb.unity
+- path: E:/technoVIT/TCP_test/Assets/Tester.unity
   isLoaded: 1
   isActive: 1
