@@ -12,46 +12,67 @@ public class Test : MonoBehaviour
 
     Thread m_Thread;
     UdpClient m_Client;
-
+    Socket socket;
+    byte[] buffer=new byte[1024];
 
     void Start()
     {
-        m_Thread = new Thread(new ThreadStart(ReceiveData));
-        m_Thread.IsBackground = true;
-        m_Thread.Start();
-    }
+        //m_Thread = new Thread(new ThreadStart(ReceiveData));
+        //m_Thread.IsBackground = true;
+        //m_Thread.Start();
+        socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+        socket.Bind(new IPEndPoint(IPAddress.Any, 0));
+        socket.Blocking = false;
 
+        StartCoroutine(Poll());
+    }
+    IEnumerator Poll()
+    {
+        while (true)
+        {
+            yield return null;
+            if (socket.Poll(0, SelectMode.SelectRead))
+            {
+                int bytesReceived = socket.Receive(buffer, 0, buffer.Length, SocketFlags.None);
+
+                if (bytesReceived > 0)
+                {
+                    print(Encoding.ASCII.GetString(buffer));
+                }
+            }
+        }
+    }
     private void Update()
     {
         udpSend();
-        ReceiveData();
+        //ReceiveData();
     }
 
-    void ReceiveData()
-    {
+    //void ReceiveData()
+    //{
 
-        try
-        {
+    //    try
+    //    {
 
-            m_Client = new UdpClient(8887);
-            m_Client.EnableBroadcast = true;
-            //while (true)
-            //{
-            print("received");
-                IPEndPoint hostIP = new IPEndPoint(IPAddress.Any, 0);
-                byte[] data = m_Client.Receive(ref hostIP);
-                string returnData = Encoding.ASCII.GetString(data);
+    //        m_Client = new UdpClient(8887);
+    //        m_Client.EnableBroadcast = true;
+    //        //while (true)
+    //        //{
+    //        print("received");
+    //            IPEndPoint hostIP = new IPEndPoint(IPAddress.Any, 0);
+    //            byte[] data = m_Client.Receive(ref hostIP);
+    //            string returnData = Encoding.ASCII.GetString(data);
 
-                Debug.Log(returnData);
-            //}
-        }
-        catch (Exception e)
-        {
-            Debug.Log(e);
+    //            Debug.Log(returnData);
+    //        //}
+    //    }
+    //    catch (Exception e)
+    //    {
+    //        Debug.Log(e);
 
-            OnApplicationQuit();
-        }
-    }
+    //        OnApplicationQuit();
+    //    }
+    //}
 
     private void OnApplicationQuit()
     {
